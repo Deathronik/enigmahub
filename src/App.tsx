@@ -1,8 +1,11 @@
 import './App.css'
+import Sidebar from "./components/Sidebar/Sidebar.tsx";
 
-function App() {
+const App = () => {
   return (
-      <button className="btn">Hello world</button>
+      <div className="h-screen p-2">
+        <Sidebar/>
+      </div>
   )
 }
 
