@@ -1,10 +1,9 @@
 import EthPrice from "./EthPrice/EthPrice.tsx";
 import GasPrice from "./GasPrice/GasPrice.tsx";
 import {Link, NavLink} from "react-router-dom";
-
 const Sidebar = () => {
     return (
-        <ul className="menu bg-base-200 menu-lg w-56 rounded-box">
+        <ul className="menu bg-base-200 menu-lg w-56 rounded-box fadeIn">
             <Link to="/">
                 <li className="text-gray-50">
                     <div>
