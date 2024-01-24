@@ -22,7 +22,7 @@ const GasPrice = () => {
 
     return (
         <div className="flex flex-row items-center">
-            <img src="gas.png" width="15px" height="15px" alt="gas icon"/>
+            <img src="/src/assets/imgs/gas.png" width="15px" height="15px" alt="gas icon"/>
             <b className="ml-1">{gasPrice} GWEI</b>
         </div>
     )
