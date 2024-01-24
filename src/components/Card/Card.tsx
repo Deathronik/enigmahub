@@ -7,7 +7,7 @@ const Card = ({title, text, link, imgSrc}: { title: string, text: string, link: 
                 <p>{text}</p>
                 <div className="card-actions mt-2">
                     <a href={link} target="_blank">
-                        <button className="btn btn-primary btn-outline w-56">OPEN</button>
+                        <button className="btn btn-primary w-40">OPEN</button>
                     </a>
                 </div>
             </div>
