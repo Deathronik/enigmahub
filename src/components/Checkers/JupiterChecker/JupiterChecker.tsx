@@ -73,7 +73,7 @@ const JupiterChecker = () => {
             <h2 className="text-2xl font-bold mt-7">Wallet addresses</h2>
             <p>(Be careful to enter only addresses, not private phrases or keys)</p>
             <textarea value={input} onChange={e => setInput(e.target.value)} placeholder="Your wallet addresses"
-                      className="textarea textarea-bordered textarea-md w-96 h-56 mt-3 resize-none"/>
+                      className="textarea textarea-bordered textarea-md h-56 mt-3 resize-none" style={{width: "500px"}}/>
             <button className="btn btn-primary mt-3 w-56" onClick={onClickCheck} disabled={isLoading}>
                 {isLoading
                     ? <span className="loading loading-ring loading-lg text-primary"></span>
