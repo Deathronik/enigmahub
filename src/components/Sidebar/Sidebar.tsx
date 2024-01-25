@@ -1,6 +1,7 @@
 import EthPrice from "./EthPrice/EthPrice.tsx";
 import GasPrice from "./GasPrice/GasPrice.tsx";
 import {Link, NavLink} from "react-router-dom";
+
 const Sidebar = () => {
     return (
         <ul className="menu bg-base-200 menu-lg w-56 min-w-56 rounded-box fadeIn" style={{maxHeight: 546}}>
@@ -32,7 +33,7 @@ const Sidebar = () => {
                 </ul>
             </li>
             <li className="disabled">
-            <a>
+                <a>
                     <img src="/assets/imgs/fire.png" alt="fire"
                          className="filter brightness-75 w-8 h-13 animate-pulse"/>
                     L0 Gas Refuel (Coming Soon)
@@ -50,11 +51,13 @@ const Sidebar = () => {
                     Our links
                 </NavLink>
             </li>
-            <div className="divider mt-1"/>
-            <div className="flex flex-row justify-center items-center mb-3">
-                <EthPrice/>
-                <div className="divider divider-horizontal ml-1 mr-1"/>
-                <GasPrice/>
+            <div>
+                <div className="divider mt-1"/>
+                <div className="flex flex-row justify-center items-center mb-3">
+                    <EthPrice/>
+                    <div className="divider divider-horizontal ml-1 mr-1"/>
+                    <GasPrice/>
+                </div>
             </div>
         </ul>
     )
