@@ -4,7 +4,7 @@ import {Link, NavLink} from "react-router-dom";
 
 const Sidebar = () => {
     return (
-        <ul className="menu bg-base-200 menu-lg w-56 min-w-56 rounded-box fadeIn" style={{maxHeight: 546}}>
+        <ul className="menu bg-base-200 menu-lg w-56 min-w-56 rounded-box fadeIn">
             <Link to="/">
                 <li className="text-gray-50">
                     <div>
