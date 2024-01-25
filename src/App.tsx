@@ -23,7 +23,9 @@ const App = () => {
                     </div>
                     <div className="drawer-side z-[2]">
                         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                        <Sidebar/>
+                        <div className="p-2">
+                            <Sidebar/>
+                        </div>
                     </div>
                 </div>
             </MobileView>
