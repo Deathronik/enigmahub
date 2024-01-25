@@ -22,7 +22,7 @@ const EthPrice = () => {
 
     return (
         <div className="flex flex-row items-center">
-            <img src="/src/assets/imgs/eth.png" width="25px" height="25px" alt="ETH logo"/>
+            <img src="/assets/imgs/eth.png" width="25px" height="25px" alt="ETH logo"/>
             <div>
                 <b>{Math.round(price)} $</b>
             </div>
