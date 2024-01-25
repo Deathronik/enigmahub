@@ -6,12 +6,12 @@ import {useEffect, useState} from "react";
 
 const App = () => {
     const routes = useRoutes()
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 767)
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024)
 
     useEffect(() => {
-        setIsMobile(window.innerWidth <= 767)
+        setIsMobile(window.innerWidth <= 1024)
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 767)
+            setIsMobile(window.innerWidth <= 1024)
         }
 
         window.addEventListener('resize', handleResize)
