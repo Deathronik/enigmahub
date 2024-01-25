@@ -39,7 +39,7 @@ const App = () => {
                 </div>
             </div>}
             {!isMobile && (<Sidebar/>)}
-            <div className="flex-grow flex justify-center items-center">
+            <div className="flex-grow flex justify-center items-center ml-5">
                 {routes}
             </div>
         </div>
