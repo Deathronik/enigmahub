@@ -7,7 +7,7 @@ const App = () => {
     const routes = useRoutes()
 
     return (
-        <div className="p-2 flex flex-row">
+        <div className="p-2 flex flex-row fadeIn">
             <Sidebar/>
             <div className="flex-grow flex justify-center items-center">
                 {routes}
