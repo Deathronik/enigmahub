@@ -2,8 +2,10 @@ import {useState} from "react";
 import {IWalletData} from "../../../interfaces/IWalletData.ts";
 import Creator from "../../Creator/Creator.tsx";
 import ResultsTable from "../../ResultsTable/ResultsTable.tsx";
-import CorsAlert from "../CorsAlert/CorsAlert.tsx";
-import CaseAlert from "../CaseAlert/CaseAlert.tsx";
+import {toast} from "react-toastify";
+import Toast from "../../Toast/Toast.tsx";
+import CaseAlert from "../Alerts/CaseAlert/CaseAlert.tsx";
+import CorsAlert from "../Alerts/CorsAlert/CorsAlert.tsx";
 
 const AltLayerChecker = () => {
     const [input, setInput] = useState("")
@@ -41,9 +43,17 @@ const AltLayerChecker = () => {
                 }
             }
         } catch (e) {
-            console.error(e)
-            await new Promise(r => setTimeout(r, 60000))
-            return await fetchWalletData(wallet);
+            if (String(e).includes('Failed to fetch')) {
+                console.error(e)
+                toast(<Toast text="CORS error. Please use the extension to bypass"/>);
+                await new Promise(r => setTimeout(r, 60000));
+                return await fetchWalletData(wallet);
+            } else {
+                console.error(e)
+                toast(<Toast text="Too many requests. Start waiting 45 seconds..."/>)
+                await new Promise(r => setTimeout(r, 45000))
+                return await fetchWalletData(wallet);
+            }
         }
     }
 

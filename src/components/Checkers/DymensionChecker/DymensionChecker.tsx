@@ -2,6 +2,8 @@ import {useState} from "react";
 import {IWalletData} from "../../../interfaces/IWalletData.ts";
 import Creator from "../../Creator/Creator.tsx";
 import ResultsTable from "../../ResultsTable/ResultsTable.tsx";
+import {toast} from "react-toastify";
+import Toast from "../../Toast/Toast.tsx";
 
 const DymensionChecker = () => {
     const [input, setInput] = useState("")
@@ -39,7 +41,8 @@ const DymensionChecker = () => {
             }
         } catch (e) {
             console.error(e)
-            await new Promise(r => setTimeout(r, 60000))
+            toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
+            await new Promise(r => setTimeout(r, 45000))
             return await fetchWalletData(wallet);
         }
     }

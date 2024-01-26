@@ -1,8 +1,11 @@
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
+
 import Sidebar from "./components/Sidebar/Sidebar.tsx";
 
 import {useRoutes} from "./hooks/useRouter.tsx";
-import { BrowserView, MobileView} from 'react-device-detect';
+import {BrowserView, MobileView} from 'react-device-detect';
+import {ToastContainer} from "react-toastify";
 
 const App = () => {
     const routes = useRoutes()
@@ -35,6 +38,7 @@ const App = () => {
             <div className="flex-grow flex justify-center items-center ml-5">
                 {routes}
             </div>
+            <ToastContainer autoClose={7500} position="bottom-right" hideProgressBar={true} closeButton={false}/>
         </div>
     )
 }
