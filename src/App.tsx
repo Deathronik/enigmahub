@@ -13,6 +13,7 @@ const App = () => {
     return (
         <div className="p-2 flex flex-row fadeIn">
             <MobileView>
+                <ToastContainer autoClose={7500} position="top-center" hideProgressBar={true} closeButton={false}/>
                 <div className="drawer">
                     <input id="my-drawer" type="checkbox" className="drawer-toggle"/>
                     <div className="drawer-content">
@@ -26,19 +27,20 @@ const App = () => {
                     </div>
                     <div className="drawer-side z-[2]">
                         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                        <div className="p-2">
+                        <div className="p-2 m-2">
                             <Sidebar/>
                         </div>
                     </div>
                 </div>
             </MobileView>
             <BrowserView>
+                <ToastContainer autoClose={7500} position="bottom-right" hideProgressBar={true} closeButton={false}/>
                 <Sidebar/>
             </BrowserView>
-            <div className="flex-grow flex justify-center items-center ml-5">
+            <div className="flex-grow flex justify-center items-center ml-5 p-2">
                 {routes}
             </div>
-            <ToastContainer autoClose={7500} position="bottom-right" hideProgressBar={true} closeButton={false}/>
+
         </div>
     )
 }
