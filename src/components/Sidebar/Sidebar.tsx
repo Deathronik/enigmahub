@@ -28,11 +28,12 @@ const Sidebar = () => {
                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-200/50 rounded-box w-32">
                     <li><NavLink to="/check/alt">$ALT</NavLink></li>
                     <li className="mt-1"><NavLink to="/check/zeta">$ZETA</NavLink></li>
+                    <li className="mt-1"><NavLink to="/check/dym">$DYM</NavLink></li>
                     <li className="mt-1"><NavLink to="/check/jup">$JUP</NavLink></li>
                 </ul>
             </li>
             <li className="disabled">
-                <a>
+            <a>
                     <img src="/assets/imgs/fire.png" alt="fire"
                          className="filter brightness-75 w-8 h-13 animate-pulse"/>
                     L0 Gas Refuel (Coming Soon)

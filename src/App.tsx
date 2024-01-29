@@ -24,7 +24,6 @@ const App = () => {
             <div className="flex-grow flex justify-center items-center ml-5 p-2">
                 {routes}
             </div>
-
         </div>
     )
 }
