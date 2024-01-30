@@ -83,7 +83,7 @@ export const fetchZetaWalletData = async (wallet: string): Promise<IWalletData> 
 }
 export const fetchDymWalletData = async (wallet: string): Promise<IWalletData> => {
     try {
-        const response = await fetch(`https://geteligibleuserrequest-xqbg2swtrq-uc.a.run.app/?address=${wallet}`, {
+        const response = await fetch(`https://geteligibleuserrequest-xqbg2swtrq-uc.a.run.app/?address=${wallet.toLowerCase()}`, {
             "headers": {
                 "accept": "*/*",
                 "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
@@ -120,7 +120,7 @@ export const fetchDymWalletData = async (wallet: string): Promise<IWalletData> =
 export const fetchJupWalletData = async (wallet: string): Promise<IWalletData> => {
     await new Promise(r => setTimeout(r, 250))
     try {
-        const response = await fetch(`https://airdrop-api.jup.ag/allocation/${wallet}`, {
+        const response = await fetch(`https://airdrop-api.jup.ag/allocation/${wallet.toLowerCase()}`, {
             "referrer": "https://airdrop.jup.ag/",
             "referrerPolicy": "strict-origin-when-cross-origin",
             "body": null,
