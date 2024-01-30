@@ -1,21 +1,19 @@
 import {Navigate, Route, Routes} from "react-router-dom";
 import Links from "../components/Links/Links.tsx";
-import JupiterChecker from "../components/Checkers/JupiterChecker/JupiterChecker.tsx";
-import ZetaChecker from "../components/Checkers/ZetaChecker/ZetaChecker.tsx";
-import AirdropFinished from "../components/Checkers/AirdropFinished/AirdropFinished.tsx";
 import Home from "../components/Home/Home.tsx";
-import AltLayerChecker from "../components/Checkers/AltLayerChecker/AltLayerChecker.tsx";
-import DymensionChecker from "../components/Checkers/DymensionChecker/DymensionChecker.tsx";
+import Checker from "../components/Checker/Checker.tsx";
+import {fetchAltWalletData, fetchDymWalletData, fetchJupWalletData, fetchZetaWalletData} from "../utils/api.tsx";
+import AirdropFinished from "../components/AirdropFinished/AirdropFinished.tsx";
 
 export const useRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/links" element={<Links/>}/>
-            <Route path="/check/alt" element={<AltLayerChecker/>}/>
-            <Route path="/check/zeta" element={<ZetaChecker/>}/>
-            <Route path="/check/dym" element={<DymensionChecker/>}/>
-            <Route path="/check/jup" element={<JupiterChecker/>}/>
+            <Route path="/check/alt" element={<Checker airdropName={"alt"} fetchWalletData={fetchAltWalletData} alerts={["cors", "case"]}/>}/>
+            <Route path="/check/zeta" element={<Checker airdropName={"zeta"} fetchWalletData={fetchZetaWalletData}/>}/>
+            <Route path="/check/dym" element={<Checker airdropName={"dym"} fetchWalletData={fetchDymWalletData}/>}/>
+            <Route path="/check/jup" element={<Checker airdropName={"jup"} fetchWalletData={fetchJupWalletData}/>}/>
             <Route path="/check/strkr" element={<AirdropFinished stage={"airdrop"}/>}/>
             <Route path="*" element={<Navigate to="/"/>}/>
         </Routes>
