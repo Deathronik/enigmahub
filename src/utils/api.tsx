@@ -161,8 +161,8 @@ export const fetchJupWalletData = async (wallet: string, signal: AbortSignal): P
             console.error(e)
         } else {
             console.error(e)
-            toast(<Toast text="Too Many Requests. Start waiting 10 seconds..."/>)
-            await new Promise(r => setTimeout(r, 10000))
+            toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
+            await new Promise(r => setTimeout(r, 45000))
             return await fetchJupWalletData(wallet, signal);
         }
     }
