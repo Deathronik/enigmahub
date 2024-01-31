@@ -69,7 +69,6 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
 
     useEffect(() => {
         isFirstRender.current = true
-        console.log(airdropName)
         setAirdropCheckHistory(getCheckHistory(airdropName))
 
         setTimeout(() => isFirstRender.current = false, 100)
