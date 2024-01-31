@@ -39,12 +39,12 @@ export const fetchAltWalletData = async (wallet: string, signal: AbortSignal): P
         } else if (String(e).includes('Failed to fetch')) {
             console.error(e)
             toast(<Toast text="CORS error. Please use the extension to bypass"/>);
-            await new Promise(r => setTimeout(r, 5000));
+            await new Promise(r => setTimeout(r, 60000));
             return await fetchAltWalletData(wallet, signal);
         } else {
             console.error(e)
             toast(<Toast text="Too many requests. Start waiting 45 seconds..."/>)
-            await new Promise(r => setTimeout(r, 5000))
+            await new Promise(r => setTimeout(r, 45000))
             return await fetchAltWalletData(wallet, signal);
         }
     }
@@ -83,8 +83,8 @@ export const fetchZetaWalletData = async (wallet: string, signal: AbortSignal): 
             console.error(e)
         } else {
             console.error(e)
-            toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
-            await new Promise(r => setTimeout(r, 5000))
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await new Promise(r => setTimeout(r, 60000))
             return await fetchZetaWalletData(wallet, signal);
         }
     }
