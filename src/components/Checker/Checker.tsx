@@ -1,17 +1,19 @@
 import {useEffect, useRef, useState} from "react";
-import {IWalletData} from "../../interfaces/IWalletData.ts";
-import {clearCheckHistory, getCheckHistory, setCheckHistory} from "../../utils/checkHistory.ts";
-import ResultsTable from "../ResultsTable/ResultsTable.tsx";
-import CheckHistory from "../CheckHistory/CheckHistory.tsx";
-import Creator from "../Creator/Creator.tsx";
-import {IHistoryData} from "../../interfaces/IHistoryData.ts";
-import CaseAlert from "../Alerts/CaseAlert/CaseAlert.tsx";
-import CorsAlert from "../Alerts/CorsAlert/CorsAlert.tsx";
 
+import Creator from "../Creator/Creator.tsx";
+import CaseAlert from "./CaseAlert/CaseAlert.tsx";
+import CorsAlert from "./CorsAlert/CorsAlert.tsx";
+import ResultsTable from "./ResultsTable/ResultsTable.tsx";
+import CheckHistory from "./CheckHistory/CheckHistory.tsx";
+
+import {IHistoryData} from "../../interfaces/IHistoryData.ts";
+import {IWalletData} from "../../interfaces/IWalletData.ts";
+
+import {clearCheckHistory, getCheckHistory, setCheckHistory} from "../../utils/checkHistory.ts";
 
 const Checker = ({airdropName, fetchWalletData, alerts}: {
     airdropName: string,
-    fetchWalletData: (wallet: string) => Promise<IWalletData>,
+    fetchWalletData: (wallet: string, signal: AbortSignal) => Promise<IWalletData>,
     alerts?: string[]
 }) => {
     const [input, setInput] = useState("")
@@ -20,7 +22,8 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
     const [results, setResults] = useState<IWalletData[]>([])
     const [airdropCheckHistory, setAirdropCheckHistory] = useState<IHistoryData[]>([])
 
-    const isFirstRender = useRef(true);
+    const isFirstRender = useRef(true)
+    const abortControllerRef = useRef(new AbortController());
 
     const onClickCheck = async () => {
         setIsLoading(true)
@@ -28,23 +31,31 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
         const wallets = input.split("\n")
         const walletsData: IWalletData[] = []
 
-        for (const wallet of wallets) {
-            if (wallet === "") {
+        const abortController = new AbortController();
+        abortControllerRef.current = abortController;
+
+        try {
+            for (const wallet of wallets) {
+                if (wallet === "") {
+                    setProgress(prevState => prevState + 1)
+                    continue
+                }
+
+                const walletData: IWalletData = await fetchWalletData(wallet, abortController.signal)
+
+                walletsData.push(walletData)
                 setProgress(prevState => prevState + 1)
-                continue
             }
 
-            const walletData: IWalletData = await fetchWalletData(wallet)
-
-            walletsData.push(walletData)
-            setProgress(prevState => prevState + 1)
+            setCheckHistory(airdropName, walletsData.map(walletData => walletData.wallet))
+            setAirdropCheckHistory(getCheckHistory(airdropName))
+            setResults(walletsData)
+        } catch (e) {
+            console.error(e)
+        } finally {
+            setIsLoading(false)
+            setProgress(0)
         }
-
-        setCheckHistory(airdropName, walletsData.map(walletData => walletData.wallet))
-        setAirdropCheckHistory(getCheckHistory(airdropName))
-        setResults(walletsData)
-        setIsLoading(false)
-        setProgress(0)
     }
 
     const setInputByClickOnHistory = (wallets: string[]) => {
@@ -57,15 +68,18 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
     }
 
     useEffect(() => {
-        isFirstRender.current = true;
+        isFirstRender.current = true
+        console.log(airdropName)
         setAirdropCheckHistory(getCheckHistory(airdropName))
 
         setTimeout(() => isFirstRender.current = false, 100)
 
         return () => {
-            setInput("");
-            setResults([]);
-            setAirdropCheckHistory([]);
+            setInput("")
+            setIsLoading(false)
+            setResults([])
+            setAirdropCheckHistory([])
+            abortControllerRef.current.abort()
         }
     }, [airdropName])
 

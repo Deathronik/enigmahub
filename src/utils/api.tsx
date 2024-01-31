@@ -2,7 +2,7 @@ import {IWalletData} from "../interfaces/IWalletData.ts";
 import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
-export const fetchAltWalletData = async (wallet: string): Promise<IWalletData> => {
+export const fetchAltWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch("https://airdrop.altlayer.io/", {
             "headers": {
@@ -13,7 +13,8 @@ export const fetchAltWalletData = async (wallet: string): Promise<IWalletData> =
                 "next-router-state-tree": "%5B%22%22%2C%7B%22children%22%3A%5B%22(homePage)%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
             },
             "body": `["${wallet}"]`,
-            "method": "POST"
+            "method": "POST",
+            signal: signal
         });
 
         const text = await response.text()
@@ -33,20 +34,22 @@ export const fetchAltWalletData = async (wallet: string): Promise<IWalletData> =
             }
         }
     } catch (e) {
-        if (String(e).includes('Failed to fetch')) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else if (String(e).includes('Failed to fetch')) {
             console.error(e)
             toast(<Toast text="CORS error. Please use the extension to bypass"/>);
-            await new Promise(r => setTimeout(r, 60000));
-            return await fetchAltWalletData(wallet);
+            await new Promise(r => setTimeout(r, 5000));
+            return await fetchAltWalletData(wallet, signal);
         } else {
             console.error(e)
             toast(<Toast text="Too many requests. Start waiting 45 seconds..."/>)
-            await new Promise(r => setTimeout(r, 45000))
-            return await fetchAltWalletData(wallet);
+            await new Promise(r => setTimeout(r, 5000))
+            return await fetchAltWalletData(wallet, signal);
         }
     }
 }
-export const fetchZetaWalletData = async (wallet: string): Promise<IWalletData> => {
+export const fetchZetaWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch(`https://airdrop-router.cl04.zetachain.com/pre-claim-status?address=${wallet}`, {
             "headers": {
@@ -56,7 +59,8 @@ export const fetchZetaWalletData = async (wallet: string): Promise<IWalletData> 
                 "upgrade-insecure-requests": "1"
             },
             "body": null,
-            "method": "GET"
+            "method": "GET",
+            signal: signal
         })
 
         const json = await response.json()
@@ -75,13 +79,17 @@ export const fetchZetaWalletData = async (wallet: string): Promise<IWalletData> 
             }
         }
     } catch (e) {
-        console.error(e)
-        toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
-        await new Promise(r => setTimeout(r, 45000))
-        return await fetchZetaWalletData(wallet);
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
+            await new Promise(r => setTimeout(r, 5000))
+            return await fetchZetaWalletData(wallet, signal);
+        }
     }
 }
-export const fetchDymWalletData = async (wallet: string): Promise<IWalletData> => {
+export const fetchDymWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch(`https://geteligibleuserrequest-xqbg2swtrq-uc.a.run.app/?address=${wallet.toLowerCase()}`, {
             "headers": {
@@ -92,7 +100,8 @@ export const fetchDymWalletData = async (wallet: string): Promise<IWalletData> =
             "body": null,
             "method": "GET",
             "mode": "cors",
-            "credentials": "omit"
+            "credentials": "omit",
+            signal: signal
         })
 
         if (response.ok) {
@@ -111,20 +120,25 @@ export const fetchDymWalletData = async (wallet: string): Promise<IWalletData> =
             }
         }
     } catch (e) {
-        console.error(e)
-        toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
-        await new Promise(r => setTimeout(r, 45000))
-        return await fetchDymWalletData(wallet);
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
+            await new Promise(r => setTimeout(r, 45000))
+            return await fetchDymWalletData(wallet, signal);
+        }
     }
 }
-export const fetchJupWalletData = async (wallet: string): Promise<IWalletData> => {
+export const fetchJupWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     await new Promise(r => setTimeout(r, 250))
     try {
         const response = await fetch(`https://airdrop-api.jup.ag/allocation/${wallet.toLowerCase()}`, {
             "referrer": "https://airdrop.jup.ag/",
             "referrerPolicy": "strict-origin-when-cross-origin",
             "body": null,
-            "method": "GET"
+            "method": "GET",
+            signal: signal
         })
 
         const json = await response.json().catch(() => null);
@@ -143,9 +157,13 @@ export const fetchJupWalletData = async (wallet: string): Promise<IWalletData> =
             })
         }
     } catch (e) {
-        console.error(e)
-        toast(<Toast text="Too Many Requests. Start waiting 10 seconds..."/>)
-        await new Promise(r => setTimeout(r, 10000))
-        return await fetchJupWalletData(wallet);
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 10 seconds..."/>)
+            await new Promise(r => setTimeout(r, 10000))
+            return await fetchJupWalletData(wallet, signal);
+        }
     }
 }
