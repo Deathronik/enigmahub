@@ -1,4 +1,4 @@
-import {IHistoryData} from "../../interfaces/IHistoryData.ts";
+import {IHistoryData} from "../../../interfaces/IHistoryData.ts";
 
 const CheckHistory = ({airdropCheckHistory, setInputByClickOnHistory, clearAirdropCheckHistory}: {
     airdropCheckHistory: IHistoryData[],

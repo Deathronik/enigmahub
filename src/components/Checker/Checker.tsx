@@ -13,7 +13,7 @@ import {clearCheckHistory, getCheckHistory, setCheckHistory} from "../../utils/c
 
 const Checker = ({airdropName, fetchWalletData, alerts}: {
     airdropName: string,
-    fetchWalletData: (wallet: string, signal: AbortSignal) => Promise<IWalletData>,
+    fetchWalletData: (wallet: string, signal: AbortSignal) => Promise<IWalletData | undefined>,
     alerts?: string[]
 }) => {
     const [input, setInput] = useState("")
@@ -41,9 +41,9 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
                     continue
                 }
 
-                const walletData: IWalletData = await fetchWalletData(wallet, abortController.signal)
+                const walletData: IWalletData | undefined = await fetchWalletData(wallet, abortController.signal)
 
-                walletsData.push(walletData)
+                walletsData.push(walletData as IWalletData)
                 setProgress(prevState => prevState + 1)
             }
 

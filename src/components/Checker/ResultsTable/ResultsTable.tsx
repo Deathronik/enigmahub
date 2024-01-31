@@ -1,4 +1,4 @@
-import {IWalletData} from "../../interfaces/IWalletData.ts";
+import {IWalletData} from "../../../interfaces/IWalletData.ts";
 
 const ResultsTable = ({results, tokenName}: {results: IWalletData[], tokenName: string}) => {
     return (
