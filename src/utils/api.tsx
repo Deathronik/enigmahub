@@ -89,47 +89,6 @@ export const fetchZetaWalletData = async (wallet: string, signal: AbortSignal): 
         }
     }
 }
-export const fetchDymWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
-    try {
-        const response = await fetch(`https://geteligibleuserrequest-xqbg2swtrq-uc.a.run.app/?address=${wallet.toLowerCase()}`, {
-            "headers": {
-                "accept": "*/*",
-                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
-            },
-            "referrerPolicy": "strict-origin-when-cross-origin",
-            "body": null,
-            "method": "GET",
-            "mode": "cors",
-            "credentials": "omit",
-            signal: signal
-        })
-
-        if (response.ok) {
-            const json = await response.json()
-
-            return {
-                "wallet": wallet,
-                "amount": Number(json.amount.toFixed(2)),
-                "eligible": true
-            }
-        } else {
-            return {
-                "wallet": wallet,
-                "amount": 0,
-                "eligible": false
-            }
-        }
-    } catch (e) {
-        if (String(e).includes('signal')) {
-            console.error(e)
-        } else {
-            console.error(e)
-            toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
-            await new Promise(r => setTimeout(r, 45000))
-            return await fetchDymWalletData(wallet, signal);
-        }
-    }
-}
 export const fetchJupWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     await new Promise(r => setTimeout(r, 250))
     try {
