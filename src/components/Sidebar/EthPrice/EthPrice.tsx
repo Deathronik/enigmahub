@@ -1,20 +1,14 @@
 import {useEffect, useState} from "react";
+import {fetchEthPrice} from "../../../utils/api.tsx";
 
 const EthPrice = () => {
     const [price, setPrice] = useState(0)
 
     useEffect(() => {
-        const fetchPrice = async () => {
-            const response = await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')
-            const responseJSON = await response.json()
-
-            setPrice(responseJSON.USD)
-        }
-
-        fetchPrice().catch(console.error)
+        fetchEthPrice().then(price => setPrice(price))
 
         const intervalId = setInterval(() => {
-            fetchPrice().catch(console.error)
+            fetchEthPrice().then(price => setPrice(price))
         }, 60 * 1000)
 
         return () => clearInterval(intervalId);

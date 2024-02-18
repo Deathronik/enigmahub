@@ -126,3 +126,25 @@ export const fetchJupWalletData = async (wallet: string, signal: AbortSignal): P
         }
     }
 }
+
+export const fetchEthPrice = async (): Promise<number> => {
+    try {
+        const response = await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')
+        const json = await response.json()
+        return json.USD
+    } catch (e) {
+        console.error(e)
+        return fetchEthPrice()
+    }
+}
+
+export const fetchGasPrice = async (): Promise<number> => {
+    try {
+        const response = await fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=Y63A2Q51IX6SR3AP4MYGV1IPZ6IJI2TRBA')
+        const json = await response.json()
+        return  Number.parseInt(json.result.ProposeGasPrice)
+    } catch (e) {
+        console.error(e)
+        return fetchGasPrice()
+    }
+}
