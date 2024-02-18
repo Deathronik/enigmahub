@@ -2,6 +2,7 @@ import {IWalletData} from "../interfaces/IWalletData.ts";
 import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
+const sleep = (time: number) => new Promise(r => setTimeout(r, time))
 export const fetchAltWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch("https://airdrop.altlayer.io/", {
@@ -39,12 +40,12 @@ export const fetchAltWalletData = async (wallet: string, signal: AbortSignal): P
         } else if (String(e).includes('Failed to fetch')) {
             console.error(e)
             toast(<Toast text="CORS error. Please use the extension to bypass"/>);
-            await new Promise(r => setTimeout(r, 60000));
+            await sleep(60000)
             return await fetchAltWalletData(wallet, signal);
         } else {
             console.error(e)
             toast(<Toast text="Too many requests. Start waiting 45 seconds..."/>)
-            await new Promise(r => setTimeout(r, 45000))
+            await sleep(45000)
             return await fetchAltWalletData(wallet, signal);
         }
     }
@@ -84,7 +85,7 @@ export const fetchZetaWalletData = async (wallet: string, signal: AbortSignal): 
         } else {
             console.error(e)
             toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
-            await new Promise(r => setTimeout(r, 60000))
+            await sleep(60000)
             return await fetchZetaWalletData(wallet, signal);
         }
     }
@@ -121,7 +122,7 @@ export const fetchJupWalletData = async (wallet: string, signal: AbortSignal): P
         } else {
             console.error(e)
             toast(<Toast text="Too Many Requests. Start waiting 45 seconds..."/>)
-            await new Promise(r => setTimeout(r, 45000))
+            await sleep(45000)
             return await fetchJupWalletData(wallet, signal);
         }
     }
@@ -134,6 +135,7 @@ export const fetchEthPrice = async (): Promise<number> => {
         return json.USD
     } catch (e) {
         console.error(e)
+        await sleep(5000)
         return fetchEthPrice()
     }
 }
@@ -145,6 +147,7 @@ export const fetchGasPrice = async (): Promise<number> => {
         return  Number.parseInt(json.result.ProposeGasPrice)
     } catch (e) {
         console.error(e)
+        await sleep(5000)
         return fetchGasPrice()
     }
 }
