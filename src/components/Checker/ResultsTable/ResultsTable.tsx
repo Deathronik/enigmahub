@@ -9,7 +9,7 @@ const ResultsTable = ({results, tokenName}: {results: IWalletData[], tokenName: 
                 <tr>
                     <th>#</th>
                     <th>Wallet</th>
-                    <th>Amount</th>
+                    <th className="text-center">Amount</th>
                     <th>Eligible</th>
                 </tr>
                 </thead>
