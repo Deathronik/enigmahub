@@ -3,6 +3,45 @@ import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
+export const fetchEnjoyWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
+    try {
+        const response = await fetch("https://hibxjljwpk.execute-api.us-east-1.amazonaws.com/serverless_lambda_stage/proof", {
+            "headers": {
+                "accept": "*/*",
+                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
+                "content-type": "text/plain;charset=UTF-8"
+            },
+            "body": `{"address":"${wallet}","uuid":"f16b6742-4383-49a1-9eaa-8ec5ff89d94e"}`,
+            "method": "POST",
+            signal: signal
+        })
+
+        const json = await response.json()
+
+        if (json.canClaim === true) {
+            return {
+                "wallet": wallet,
+                "amount": Number(json.amount),
+                "eligible": true
+            }
+        } else {
+            return {
+                "wallet": wallet,
+                "amount": 0,
+                "eligible": false
+            }
+        }
+    } catch (e) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await sleep(60000)
+            return await fetchEnjoyWalletData(wallet, signal);
+        }
+    }
+}
 export const fetchAltWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch("https://airdrop.altlayer.io/", {
