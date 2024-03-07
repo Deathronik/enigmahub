@@ -11,7 +11,7 @@ export const fetchEnjoyWalletData = async (wallet: string, signal: AbortSignal):
                 "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
                 "content-type": "text/plain;charset=UTF-8"
             },
-            "body": `{"address":"${wallet}","uuid":"f16b6742-4383-49a1-9eaa-8ec5ff89d94e"}`,
+            "body": `{"address":"${wallet.toLowerCase()}","uuid":"f16b6742-4383-49a1-9eaa-8ec5ff89d94e"}`,
             "method": "POST",
             signal: signal
         })
@@ -21,7 +21,7 @@ export const fetchEnjoyWalletData = async (wallet: string, signal: AbortSignal):
         if (json.canClaim === true) {
             return {
                 "wallet": wallet,
-                "amount": Number(json.amount),
+                "amount": Number(json.amount) / 1000000000000000000,
                 "eligible": true
             }
         } else {
