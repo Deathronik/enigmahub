@@ -12,17 +12,20 @@ const App = () => {
     const routes = useRoutes()
 
     return (
-        <div className="p-2 flex flex-row fadeIn">
-            <MobileView>
-                <ToastContainer autoClose={7500} position="top-center" hideProgressBar={true} closeButton={false}/>
-                <Drawer/>
-            </MobileView>
-            <BrowserView>
-                <ToastContainer autoClose={7500} position="bottom-right" hideProgressBar={true} closeButton={false}/>
-                <Sidebar/>
-            </BrowserView>
-            <div className="flex-grow flex justify-center items-center ml-5 p-2">
-                {routes}
+        <div className="w-screen flex justify-center items-center">
+            <div className="p-2 flex flex-row w-screen max-w-[1920px] fadeIn">
+                <MobileView>
+                    <ToastContainer autoClose={7500} position="top-center" hideProgressBar={true} closeButton={false}/>
+                    <Drawer/>
+                </MobileView>
+                <BrowserView>
+                    <ToastContainer autoClose={7500} position="bottom-right" hideProgressBar={true}
+                                    closeButton={false}/>
+                    <Sidebar/>
+                </BrowserView>
+                <div className="flex-grow flex justify-center items-center ml-5 p-2">
+                    {routes}
+                </div>
             </div>
         </div>
     )
