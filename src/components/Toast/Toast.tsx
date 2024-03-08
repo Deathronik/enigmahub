@@ -1,7 +1,7 @@
 const Toast = ({text}: {text: string}) => {
     return (
         <div className="alert alert-error">
-            <span>{text}</span>
+            <span className="cursor-text">{text}</span>
         </div>
     )
 }

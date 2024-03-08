@@ -27,7 +27,6 @@ const Sidebar = () => {
                 </a>
                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-200/50 rounded-box w-32">
                     <li><NavLink to="/check/enjoy">$ENJOY</NavLink></li>
-                    <li className="mt-1"><NavLink to="/check/alt">$ALT</NavLink></li>
                     <li className="mt-1"><NavLink to="/check/zeta">$ZETA</NavLink></li>
                     <li className="mt-1"><NavLink to="/check/jup">$JUP</NavLink></li>
                 </ul>
