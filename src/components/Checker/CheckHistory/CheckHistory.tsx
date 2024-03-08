@@ -11,8 +11,12 @@ const CheckHistory = ({airdropCheckHistory, setInputByClickOnHistory, clearAirdr
             {airdropCheckHistory && airdropCheckHistory.length > 0 &&
                 <div className="fadeIn">
                     <div className="flex flex-row justify-center items-center">
-                        <div className="text-1xl font-bold text-center mr-auto">Check History:</div>
-                        <button className="btn btn-sm w-14" onClick={() => clearAirdropCheckHistory()}>Clear</button>
+                        <div className="text-1xl font-bold text-center mr-auto">
+                            Check History:
+                        </div>
+                        <button className="btn btn-sm w-14 tooltip" data-tip="Stored only on your device"
+                                onClick={() => clearAirdropCheckHistory()}>Clear
+                        </button>
                     </div>
                     <table className="table table-sm table-zebra mt-3">
                         <thead className="bg-base-200">
