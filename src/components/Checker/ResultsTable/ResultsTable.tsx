@@ -1,5 +1,4 @@
 import {IWalletData} from "../../../interfaces/IWalletData.ts";
-
 const ResultsTable = ({results, tokenName}: {results: IWalletData[], tokenName: string}) => {
     return (
         <div className="flex flex-col justify-center items-center mt-3 fadeIn">

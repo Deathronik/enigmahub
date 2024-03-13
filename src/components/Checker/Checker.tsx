@@ -10,7 +10,6 @@ import {IHistoryData} from "../../interfaces/IHistoryData.ts";
 import {IWalletData} from "../../interfaces/IWalletData.ts";
 
 import {clearCheckHistory, getCheckHistory, setCheckHistory} from "../../utils/checkHistory.ts";
-
 const Checker = ({airdropName, fetchWalletData, alerts}: {
     airdropName: string,
     fetchWalletData: (wallet: string, signal: AbortSignal) => Promise<IWalletData | undefined>,

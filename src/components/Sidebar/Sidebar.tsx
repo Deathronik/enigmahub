@@ -1,6 +1,7 @@
 import EthPrice from "./EthPrice/EthPrice.tsx";
 import GasPrice from "./GasPrice/GasPrice.tsx";
 import {Link, NavLink} from "react-router-dom";
+import {airdropsData} from "../../utils/airdropsData.ts";
 
 const Sidebar = () => {
     return (
@@ -22,17 +23,19 @@ const Sidebar = () => {
             </li>
             <li className="dropdown dropdown-right mt-1">
                 <a tabIndex={0} role="button" className="pl-5">
-                    <img src="/assets/imgs/find.png" alt="find" className="w-9 h-9"/>
+                    <img src="/assets/imgs/find.png" alt="find" className="filter brightness-75 w-9 h-9"/>
                     <div>Checkers</div>
                 </a>
                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-200/50 rounded-box w-32">
-                    <li><NavLink to="/check/enjoy">$ENJOY</NavLink></li>
-                    <li className="mt-1"><NavLink to="/check/zeta">$ZETA</NavLink></li>
-                    <li className="mt-1"><NavLink to="/check/jup">$JUP</NavLink></li>
+                    {Object.keys(airdropsData).map((key) => {
+                        const airdrop = airdropsData[key]
+                        return <li key={airdrop.name} className="mt-1 first:mt-0"><NavLink
+                            to={`/check/${airdrop.name}`}>{`$${airdrop.name.toUpperCase()}`}</NavLink></li>
+                    })}
                 </ul>
             </li>
             <li className="disabled">
-            <a>
+                <a>
                     <img src="/assets/imgs/fire.png" alt="fire"
                          className="filter brightness-75 w-8 h-13 animate-pulse"/>
                     L0 Gas Refuel (Coming Soon)
