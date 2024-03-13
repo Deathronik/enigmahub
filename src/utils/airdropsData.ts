@@ -9,7 +9,7 @@ export const airdropsData: {[key: string]: IAirdropData} = {
     },
     zeta: {
         name: 'zeta',
-        text: 'Zeta',
+        text: 'ZetaChain',
         fetchWalletData: fetchZetaWalletData
     },
     jup: {
