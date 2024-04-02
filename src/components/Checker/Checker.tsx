@@ -10,6 +10,7 @@ import {IHistoryData} from "../../interfaces/IHistoryData.ts";
 import {IWalletData} from "../../interfaces/IWalletData.ts";
 
 import {clearCheckHistory, getCheckHistory, setCheckHistory} from "../../utils/checkHistory.ts";
+import RegisterAlert from "./RegisterAlert/RegisterAlert.tsx";
 const Checker = ({airdropName, fetchWalletData, alerts}: {
     airdropName: string,
     fetchWalletData: (wallet: string, signal: AbortSignal) => Promise<IWalletData | undefined>,
@@ -83,7 +84,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
 
     return (
         <div className={`flex flex-row ${isFirstRender.current ? 'fadeIn' : ''}`}>
-            <div className="flex flex-col justify-center items-center pt-14 flex-grow ml-auto">
+            <div className="flex flex-col justify-center items-center pt-14 flex-grow ml-auto pr-1">
                 <div className="flex flex-row font-bold">
                     <div className="badge badge-primary">${airdropName.toUpperCase()}</div>
                     <h1 className="text-4xl">Airdrop Checker</h1>
@@ -113,6 +114,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
                     <div className="flex flex-col justify-start items-center pl-24 pt-20">
                         {alerts.includes("case") && <CaseAlert/>}
                         {alerts.includes("cors") && <CorsAlert/>}
+                        {(alerts.includes("register") && results.length > 0) && <RegisterAlert/>}
                     </div>
                 }
             </div>

@@ -3,6 +3,43 @@ import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
+export const fetchRiftWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
+    try {
+        const response = await fetch(`https://api-riftswap.online/api/Airdrop/CheckAddress?address=${wallet}`, {
+            "headers": {
+                "accept": "application/json, text/plain, */*",
+                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
+            },
+            "body": null,
+            "method": "GET"
+        })
+
+        const json = await response.json()
+
+        if (Number(json.result.tokenAmountString) > 0) {
+            return {
+                "wallet": wallet,
+                "amount": Number(json.result.tokenAmountString) / 1e18,
+                "eligible": true
+            }
+        } else {
+            return {
+                "wallet": wallet,
+                "amount": 0,
+                "eligible": false
+            }
+        }
+    } catch (e) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await sleep(60000)
+            return await fetchEnjoyWalletData(wallet, signal);
+        }
+    }
+}
 export const fetchEnjoyWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch("https://hibxjljwpk.execute-api.us-east-1.amazonaws.com/serverless_lambda_stage/proof", {
@@ -21,7 +58,7 @@ export const fetchEnjoyWalletData = async (wallet: string, signal: AbortSignal):
         if (json.canClaim === true) {
             return {
                 "wallet": wallet,
-                "amount": Number(json.amount) / 1000000000000000000,
+                "amount": Number(json.amount) / 1e18,
                 "eligible": true
             }
         } else {

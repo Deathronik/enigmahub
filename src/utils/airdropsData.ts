@@ -1,7 +1,13 @@
-import {fetchEnjoyWalletData, fetchJupWalletData, fetchZetaWalletData} from "./api.tsx";
+import {fetchEnjoyWalletData, fetchJupWalletData, fetchRiftWalletData, fetchZetaWalletData} from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: {[key: string]: IAirdropData} = {
+    rift: {
+        name: 'rift',
+        text: 'RiftSwap',
+        alerts: ['register'],
+        fetchWalletData: fetchRiftWalletData
+    },
     enjoy: {
         name: 'enjoy',
         text: 'Enjoy',
