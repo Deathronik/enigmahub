@@ -1,4 +1,4 @@
-import {fetchEnjoyWalletData, fetchJupWalletData, fetchRiftWalletData, fetchZetaWalletData} from "./api.tsx";
+import {fetchJupWalletData, fetchRiftWalletData, fetchZetaWalletData} from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: {[key: string]: IAirdropData} = {
@@ -7,11 +7,6 @@ export const airdropsData: {[key: string]: IAirdropData} = {
         text: 'RiftSwap',
         alerts: ['register'],
         fetchWalletData: fetchRiftWalletData
-    },
-    enjoy: {
-        name: 'enjoy',
-        text: 'Enjoy',
-        fetchWalletData: fetchEnjoyWalletData
     },
     zeta: {
         name: 'zeta',
@@ -25,4 +20,4 @@ export const airdropsData: {[key: string]: IAirdropData} = {
     }
 }
 
-export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym']
+export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy']
