@@ -84,7 +84,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
 
     return (
         <div className={`flex flex-row ${isFirstRender.current ? 'fadeIn' : ''}`}>
-            <div className="flex flex-col justify-center items-center pt-14 flex-grow ml-auto max-w-screen-lg">
+            <div className="flex flex-col justify-center items-center pt-14 flex-grow ml-auto">
                 <div className="flex flex-row font-bold">
                     <div className="badge badge-primary">${airdropName.toUpperCase()}</div>
                     <h1 className="text-4xl">Airdrop Checker</h1>
