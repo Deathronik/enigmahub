@@ -84,7 +84,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
 
     return (
         <div className={`flex flex-row ${isFirstRender.current ? 'fadeIn' : ''}`}>
-            <div className="flex flex-col justify-center items-center pt-14 flex-grow ml-auto pr-1">
+            <div className="flex flex-col justify-center items-center pt-14 flex-grow ml-auto max-w-screen-lg">
                 <div className="flex flex-row font-bold">
                     <div className="badge badge-primary">${airdropName.toUpperCase()}</div>
                     <h1 className="text-4xl">Airdrop Checker</h1>
@@ -92,7 +92,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
                 <h2 className="text-2xl font-bold mt-7">Wallet addresses</h2>
                 <p>(Be careful to enter only addresses, not private phrases or keys)</p>
                 <textarea value={input} onChange={e => setInput(e.target.value)} placeholder="Your wallet addresses"
-                          className="textarea textarea-bordered textarea-md h-56 mt-3 resize-none"
+                          className="textarea textarea-bordered textarea-md h-56 mt-3 resize-none checker-textarea"
                           style={{width: "500px"}}/>
                 <button className="btn btn-primary mt-3 w-56" onClick={onClickCheck} disabled={isLoading}>
                     {isLoading
