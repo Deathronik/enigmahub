@@ -3,6 +3,47 @@ import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
+export const fetchTnsrWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
+    try {
+        const response = await fetch(`https://worker.jup.ag/jup-claim-proof/TNSRxcUxoT9xBG3de7PiJyTDYu7kskLqcpddxnEJAS6/${wallet}`, {
+            "headers": {
+                "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
+                "cache-control": "max-age=0",
+                "if-none-match": "W/\"40c14dee6154d87f90bed5ff703021b2c857bf62\"",
+                "upgrade-insecure-requests": "1"
+            },
+            "body": null,
+            "method": "GET",
+            signal: signal
+        })
+
+        const json = await response.json().catch(() => null);
+
+        if (json) {
+            return {
+                "wallet": wallet,
+                "amount": json.amount / 1e9,
+                "eligible": true
+            }
+        } else {
+            return {
+                "wallet": wallet,
+                "amount": 0,
+                "eligible": false
+            }
+        }
+    } catch (e) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await sleep(60000)
+            return await fetchTnsrWalletData(wallet, signal);
+        }
+    }
+}
 export const fetchZetaWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch(`https://airdrop-router.cl04.zetachain.com/pre-claim-status?address=${wallet}`, {
