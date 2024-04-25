@@ -12,7 +12,7 @@ export const useRoutes = () => {
             <Route path="/links" element={<Links/>}/>
             {Object.keys(airdropsData).map((key) => {
                 const airdrop = airdropsData[key]
-                return <Route key={airdrop.name} path={`/check/${airdrop.name}`}
+                return <Route key={airdrop.name} path={`/check/${airdrop.link}`}
                               element={<Checker airdropName={airdrop.name}
                                                 fetchWalletData={airdrop.fetchWalletData}
                                                 alerts={airdrop.alerts ? airdrop.alerts : undefined}/>}/>

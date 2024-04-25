@@ -30,7 +30,7 @@ const Sidebar = () => {
                     {Object.keys(airdropsData).map((key) => {
                         const airdrop = airdropsData[key]
                         return <li key={airdrop.name} className="mt-1 first:mt-0"><NavLink
-                            to={`/check/${airdrop.name}`}>{`$${airdrop.name.toUpperCase()}`}</NavLink></li>
+                            to={`/check/${airdrop.link}`}>{`$${airdrop.name.toUpperCase()}`}</NavLink></li>
                     })}
                 </ul>
             </li>
