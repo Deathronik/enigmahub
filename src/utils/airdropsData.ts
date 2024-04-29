@@ -1,8 +1,7 @@
 import {
     fetchJupWalletData,
     fetchSharkWalletData,
-    fetchTnsrWalletData,
-    fetchZetaWalletData
+    fetchTnsrWalletData
 } from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
@@ -19,12 +18,6 @@ export const airdropsData: {[key: string]: IAirdropData} = {
         text: 'Tensor',
         fetchWalletData: fetchTnsrWalletData
     },
-    zeta: {
-        link: 'zeta',
-        name: 'zeta',
-        text: 'ZetaChain',
-        fetchWalletData: fetchZetaWalletData
-    },
     jup: {
         link: 'jup',
         name: 'jup',
@@ -33,4 +26,4 @@ export const airdropsData: {[key: string]: IAirdropData} = {
     }
 }
 
-export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift']
+export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift', 'zeta']
