@@ -3,6 +3,47 @@ import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
+export const fetchEigenWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
+    try {
+        const response = await fetch(`https://claims.eigenfoundation.org/clique-eigenlayer-api/campaign/eigenlayer/credentials?walletAddress=${wallet}`, {
+            "headers": {
+                "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
+                "cache-control": "max-age=0",
+                "if-none-match": "W/\"67-6shZbRn10mWbr05cSE9J6N6DOXE\"",
+                "priority": "u=0, i"
+            },
+            "body": null,
+            "method": "GET",
+            signal: signal
+        });
+
+        const json = await response.json()
+
+        if (json.data.pipelines.tokenQualified > 0) {
+            return {
+                "wallet": wallet,
+                "amount": json.data.pipelines.tokenQualified,
+                "eligible": true
+            }
+        } else {
+            return {
+                "wallet": wallet,
+                "amount": 0,
+                "eligible": false
+            }
+        }
+    } catch (e) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await sleep(60000)
+            return await fetchEigenWalletData(wallet, signal);
+        }
+    }
+}
 export const fetchSharkWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch(`https://worker.jup.ag/jup-claim-proof/SHARKSYJjqaNyxVfrpnBN9pjgkhwDhatnMyicWPnr1s/${wallet}`, {

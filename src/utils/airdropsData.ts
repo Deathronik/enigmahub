@@ -1,4 +1,5 @@
 import {
+    fetchEigenWalletData,
     fetchJupWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData
@@ -6,6 +7,12 @@ import {
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: {[key: string]: IAirdropData} = {
+    eigen: {
+        link: 'eigen',
+        name: 'eigen',
+        text: 'EigenLayer',
+        fetchWalletData: fetchEigenWalletData
+    },
     shark: {
         link: 'shark',
         name: 'shark',
