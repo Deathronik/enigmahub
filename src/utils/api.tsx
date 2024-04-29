@@ -23,7 +23,7 @@ export const fetchEigenWalletData = async (wallet: string, signal: AbortSignal):
         if (json.data.pipelines.tokenQualified > 0) {
             return {
                 "wallet": wallet,
-                "amount": json.data.pipelines.tokenQualified,
+                "amount": +json.data.pipelines.tokenQualified.toFixed(2),
                 "eligible": true
             }
         } else {
