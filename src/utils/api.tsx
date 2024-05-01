@@ -3,6 +3,45 @@ import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
+export const fetchDriftWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
+    try {
+        await sleep(1000)
+        const response = await fetch(`https://airdrop.drift.trade/eligibility/${wallet}`, {
+            "headers": {
+                "accept": "*/*",
+                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
+            },
+            "body": null,
+            "method": "GET",
+            signal: signal
+        });
+
+        const json = await response.json()
+
+        if (json.end_amount) {
+            return {
+                "wallet": wallet,
+                "amount": json.end_amount / 1e6,
+                "eligible": true
+            }
+        } else {
+            return {
+                "wallet": wallet,
+                "amount": 0,
+                "eligible": false
+            }
+        }
+    } catch (e) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await sleep(60000)
+            return await fetchDriftWalletData(wallet, signal);
+        }
+    }
+}
 export const fetchEigenWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch(`https://claims.eigenfoundation.org/clique-eigenlayer-api/campaign/eigenlayer/credentials?walletAddress=${wallet}`, {
