@@ -1,6 +1,5 @@
 import {
     fetchDriftWalletData,
-    fetchEigenWalletData,
     fetchJupWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData
@@ -13,12 +12,6 @@ export const airdropsData: {[key: string]: IAirdropData} = {
         name: 'drift',
         text: 'DriftProtocol',
         fetchWalletData: fetchDriftWalletData
-    },
-    eigen: {
-        link: 'eigen',
-        name: 'eigen',
-        text: 'EigenLayer',
-        fetchWalletData: fetchEigenWalletData
     },
     shark: {
         link: 'shark',
@@ -40,4 +33,4 @@ export const airdropsData: {[key: string]: IAirdropData} = {
     }
 }
 
-export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift', 'zeta']
+export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift', 'zeta', 'eigen']
