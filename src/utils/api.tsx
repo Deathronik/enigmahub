@@ -36,6 +36,11 @@ export const fetchHlgWalletData = async (wallet: string, signal: AbortSignal): P
     } catch (e) {
         if (String(e).includes('signal')) {
             console.error(e)
+        } else if (String(e).includes('Failed to fetch')) {
+            console.error(e)
+            toast(<Toast text="CORS error. Please use the extension to bypass"/>);
+            await sleep(60000)
+            return await fetchHlgWalletData(wallet, signal);
         } else {
             console.error(e)
             toast(<Toast text="Too Many Requests. Start waiting 5 seconds..."/>)
