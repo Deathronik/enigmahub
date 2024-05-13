@@ -3,6 +3,47 @@ import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
+export const fetchHlgWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
+    try {
+        await sleep(1000)
+        const response = await fetch(`https://eligibility.holograph.foundation/api/eligibility/${wallet}`, {
+            "headers": {
+                "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+                "cache-control": "max-age=0",
+                "priority": "u=0, i",
+                "upgrade-insecure-requests": "1"
+            },
+            "body": null,
+            "method": "GET",
+        })
+
+        const json = await response.json()
+
+        if (json.amount) {
+            return {
+                "wallet": wallet,
+                "amount": Number(parseFloat(json.amount).toFixed(2)),
+                "eligible": true
+            }
+        } else {
+            return {
+                "wallet": wallet,
+                "amount": 0,
+                "eligible": false
+            }
+        }
+    } catch (e) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 5 seconds..."/>)
+            await sleep(5000)
+            return await fetchHlgWalletData(wallet, signal);
+        }
+    }
+}
 export const fetchDriftWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         await sleep(1000)

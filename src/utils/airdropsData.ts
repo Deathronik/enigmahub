@@ -1,5 +1,5 @@
 import {
-    fetchDriftWalletData,
+    fetchDriftWalletData, fetchHlgWalletData,
     fetchJupWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData
@@ -7,6 +7,13 @@ import {
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: {[key: string]: IAirdropData} = {
+    hlg: {
+        link: 'hlg',
+        name: 'hlg',
+        text: 'Holograph',
+        alerts: ['cors'],
+        fetchWalletData: fetchHlgWalletData
+    },
     drift: {
         link: 'drift',
         name: 'drift',
