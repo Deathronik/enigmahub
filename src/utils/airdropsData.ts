@@ -1,18 +1,18 @@
 import {
-    fetchDriftWalletData, fetchHlgWalletData,
-    fetchJupWalletData,
+    fetchDriftWalletData,
+    fetchJupWalletData, fetchKreditsWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData
 } from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
-export const airdropsData: {[key: string]: IAirdropData} = {
-    hlg: {
-        link: 'hlg',
-        name: 'hlg',
-        text: 'Holograph',
+export const airdropsData: { [key: string]: IAirdropData } = {
+    kredits: {
+        link: 'kresko',
+        name: 'kredits',
+        text: 'Kresko',
         alerts: ['cors'],
-        fetchWalletData: fetchHlgWalletData
+        fetchWalletData: fetchKreditsWalletData
     },
     drift: {
         link: 'drift',
