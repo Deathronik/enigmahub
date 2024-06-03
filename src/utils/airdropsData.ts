@@ -40,4 +40,4 @@ export const airdropsData: { [key: string]: IAirdropData } = {
     }
 }
 
-export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift', 'zeta', 'eigen']
+export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift', 'zeta', 'eigen', 'hlg']
