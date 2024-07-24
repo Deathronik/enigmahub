@@ -4,11 +4,13 @@ import Home from "../components/Home/Home.tsx";
 import Checker from "../components/Checker/Checker.tsx";
 import AirdropFinished from "../components/AirdropFinished/AirdropFinished.tsx";
 import {airdropsData, finishedAirdropsData} from "../utils/airdropsData.ts";
+import AddressesNormalizer from "../components/AddressesNormalizer/AddressesNormalizer.tsx";
 
 export const useRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="/tools/normalizer" element={<AddressesNormalizer/>}/>
             <Route path="/links" element={<Links/>}/>
             {Object.keys(airdropsData).map((key) => {
                 const airdrop = airdropsData[key]

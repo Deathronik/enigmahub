@@ -1,18 +1,18 @@
 import {
     fetchDriftWalletData,
-    fetchJupWalletData, fetchKreditsWalletData,
+    fetchJupWalletData, fetchQdevWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData
 } from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: { [key: string]: IAirdropData } = {
-    kredits: {
-        link: 'kresko',
-        name: 'kredits',
-        text: 'Kresko',
-        alerts: ['cors'],
-        fetchWalletData: fetchKreditsWalletData
+    qdev: {
+        link: 'qgov',
+        name: 'qgov',
+        text: 'Qdev',
+        fetchWalletData: fetchQdevWalletData,
+        alerts: ['case', 'cors'],
     },
     drift: {
         link: 'drift',
@@ -40,4 +40,4 @@ export const airdropsData: { [key: string]: IAirdropData } = {
     }
 }
 
-export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift', 'zeta', 'eigen', 'hlg']
+export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift', 'zeta', 'eigen', 'hlg', 'kresko']
