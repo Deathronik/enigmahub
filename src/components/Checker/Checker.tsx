@@ -9,8 +9,14 @@ import CheckHistory from "./CheckHistory/CheckHistory.tsx";
 import {IHistoryData} from "../../interfaces/IHistoryData.ts";
 import {IWalletData} from "../../interfaces/IWalletData.ts";
 
-import {clearCheckHistory, getCheckHistory, setCheckHistory} from "../../utils/checkHistory.ts";
+import {
+    clearAllOldCheckHistory,
+    clearCheckHistory,
+    getCheckHistory,
+    setCheckHistory
+} from "../../utils/checkHistory.ts";
 import RegisterAlert from "./RegisterAlert/RegisterAlert.tsx";
+
 const Checker = ({airdropName, fetchWalletData, alerts}: {
     airdropName: string,
     fetchWalletData: (wallet: string, signal: AbortSignal) => Promise<IWalletData | undefined>,
@@ -47,7 +53,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
                 setProgress(prevState => prevState + 1)
             }
 
-            setCheckHistory(airdropName, walletsData.map(walletData => walletData.wallet))
+            setCheckHistory(airdropName, walletsData)
             setAirdropCheckHistory(getCheckHistory(airdropName))
             setResults(walletsData)
         } catch (e) {
@@ -58,8 +64,12 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
         }
     }
 
-    const setInputByClickOnHistory = (wallets: string[]) => {
-        setInput(wallets.join("\n"))
+    const setInputByClickOnHistory = (walletsData: IWalletData[]) => {
+        setInput(walletsData.map(walletData => walletData.wallet).join("\n"))
+    }
+
+    const setResultsByClickOnHistory = (walletsData: IWalletData[]) => {
+        setResults(walletsData)
     }
 
     const clearAirdropCheckHistory = () => {
@@ -69,6 +79,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
 
     useEffect(() => {
         isFirstRender.current = true
+        clearAllOldCheckHistory()
         setAirdropCheckHistory(getCheckHistory(airdropName))
 
         setTimeout(() => isFirstRender.current = false, 100)
@@ -108,6 +119,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
                 <div className="ml-20">
                     <CheckHistory airdropCheckHistory={airdropCheckHistory}
                                   setInputByClickOnHistory={setInputByClickOnHistory}
+                                  setResultsByClickOnHistory={setResultsByClickOnHistory}
                                   clearAirdropCheckHistory={clearAirdropCheckHistory}/>
                 </div>
                 {alerts &&

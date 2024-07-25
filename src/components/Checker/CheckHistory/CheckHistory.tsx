@@ -1,8 +1,10 @@
 import {IHistoryData} from "../../../interfaces/IHistoryData.ts";
+import {IWalletData} from "../../../interfaces/IWalletData.ts";
 
-const CheckHistory = ({airdropCheckHistory, setInputByClickOnHistory, clearAirdropCheckHistory}: {
+const CheckHistory = ({airdropCheckHistory, setInputByClickOnHistory, setResultsByClickOnHistory, clearAirdropCheckHistory}: {
     airdropCheckHistory: IHistoryData[],
-    setInputByClickOnHistory: (wallets: string[]) => void,
+    setInputByClickOnHistory: (walletsData: IWalletData[]) => void,
+    setResultsByClickOnHistory: (walletsData: IWalletData[]) => void,
     clearAirdropCheckHistory: () => void
 }) => {
 
@@ -27,11 +29,14 @@ const CheckHistory = ({airdropCheckHistory, setInputByClickOnHistory, clearAirdr
                         </thead>
                         <tbody>
                         {airdropCheckHistory.map((data: IHistoryData, index) =>
-                            data.wallets.length !== 0 && (
+                            data.checkResult && (
                                 <tr key={index} className="hover cursor-pointer"
-                                    onClick={() => setInputByClickOnHistory(data.wallets)}>
+                                    onClick={() => {
+                                        setInputByClickOnHistory(data.checkResult)
+                                        setResultsByClickOnHistory(data.checkResult)
+                                    }}>
                                     <td>{new Date(data.time).toLocaleDateString()} {new Date(data.time).toLocaleTimeString()}</td>
-                                    <td className="max-w-96 overflow-hidden text-ellipsis">{data.wallets.join(", ")}</td>
+                                    <td className="max-w-96 overflow-hidden text-ellipsis">{data.checkResult.map(walletData => walletData.wallet).join(", ")}</td>
                                 </tr>)
                         )}
                         </tbody>

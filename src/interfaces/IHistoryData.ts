@@ -1,4 +1,6 @@
+import {IWalletData} from "./IWalletData.ts";
+
 export interface IHistoryData {
     time: Date,
-    wallets: string[]
+    checkResult: IWalletData[]
 }

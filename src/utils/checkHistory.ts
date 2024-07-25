@@ -1,18 +1,20 @@
-export const setCheckHistory = (airdropName: string, wallets: string[]) => {
+import {IWalletData} from "../interfaces/IWalletData.ts";
+
+export const setCheckHistory = (airdropName: string, walletsData: IWalletData[]) => {
     const allHistory = JSON.parse(localStorage.getItem('history') || "{}")
     const airdropHistory = allHistory[airdropName]
 
-    if (wallets.length > 0) {
+    if (walletsData.length > 0) {
         if (airdropHistory) {
             airdropHistory.push({
                 time: Date.now(),
-                wallets
+                checkResult: walletsData
             })
             allHistory[airdropName] = airdropHistory
         } else {
             allHistory[airdropName] = [{
                 time: Date.now(),
-                wallets
+                checkResult: walletsData
             }]
         }
 
@@ -29,4 +31,11 @@ export const clearCheckHistory = (airdropName: string) => {
     const allHistory = JSON.parse(localStorage.getItem("history") || "{}")
     allHistory[airdropName] = []
     localStorage.setItem('history', JSON.stringify(allHistory))
+}
+
+export const clearAllOldCheckHistory = () => {
+    if(!JSON.parse(localStorage.getItem('allOldHistoryCleared') || "false")) {
+        localStorage.removeItem('history')
+        localStorage.setItem('allOldHistoryCleared', JSON.stringify(true))
+    }
 }
