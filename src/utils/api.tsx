@@ -5,7 +5,6 @@ import Toast from "../components/Toast/Toast.tsx";
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
 export const fetchQdevWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
-        await sleep(1000)
         const response = await fetch(`https://airdrop-api.qdev.li/claimers/1/${wallet}`, {
             "headers": {
                 "accept": "*/*",
