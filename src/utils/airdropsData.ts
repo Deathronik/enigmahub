@@ -9,7 +9,7 @@ import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: { [key: string]: IAirdropData } = {
     debridge: {
-        link: 'debridge',
+        link: 'dbr',
         name: 'dbr',
         text: 'deBridge',
         fetchWalletData: fetchDeBridgeWalletData
