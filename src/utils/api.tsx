@@ -272,7 +272,13 @@ export const fetchGasPrice = async (): Promise<number> => {
     try {
         const response = await fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=Y63A2Q51IX6SR3AP4MYGV1IPZ6IJI2TRBA')
         const json = await response.json()
-        return Number.parseInt(json.result.ProposeGasPrice)
+        const gasPrice = json.result.ProposeGasPrice
+
+        if (gasPrice < 10) {
+            return Number(Number(gasPrice).toFixed(1))
+        } else {
+            return Number.parseInt(gasPrice)
+        }
     } catch (e) {
         console.error(e)
         await sleep(5000)
