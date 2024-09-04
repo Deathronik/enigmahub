@@ -1,6 +1,6 @@
 import {
     fetchDeBridgeWalletData,
-    fetchDriftWalletData,
+    fetchDriftWalletData, fetchGrassWalletData,
     fetchJupWalletData, fetchQdevWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData
@@ -8,6 +8,12 @@ import {
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: { [key: string]: IAirdropData } = {
+    grass: {
+        link: 'grass',
+        name: 'grass',
+        text: 'Grass',
+        fetchWalletData: fetchGrassWalletData
+    },
     debridge: {
         link: 'dbr',
         name: 'dbr',

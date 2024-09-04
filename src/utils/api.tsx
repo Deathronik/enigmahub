@@ -3,6 +3,51 @@ import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
+export const fetchGrassWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
+    try {
+        const response = await fetch(`https://api.getgrass.io/airdropAllocations?input=%7B%22walletAddress%22:%22${wallet}%22%7D`, {
+            "headers": {
+                "accept": "application/json, text/plain, */*",
+                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
+                "cache-control": "no-cache",
+                "pragma": "no-cache",
+                "priority": "u=1, i",
+            },
+            "body": null,
+            "method": "GET",
+            "mode": "cors",
+            "credentials": "omit"
+        });
+
+        const json = await response.json()
+
+        if (json.result.data) {
+            return {
+                "wallet": wallet,
+                "amount":  Number((Object.values(json.result.data)
+                    .map(value => Number(value))
+                    .filter(value => !isNaN(value))
+                    .reduce((sum, value) => sum + value, 0)).toFixed(2)),
+                "eligible": true
+            }
+        } else {
+            return {
+                "wallet": wallet,
+                "amount": 0,
+                "eligible": false
+            }
+        }
+    } catch (e) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await sleep(60000)
+            return await fetchGrassWalletData(wallet, signal);
+        }
+    }
+}
 export const fetchDeBridgeWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         await sleep(1100)

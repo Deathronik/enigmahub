@@ -5,7 +5,7 @@ const Home = () => {
     return (
         <div className="flex flex-col justify-center items-center">
             <h1 className="font-bold text-4xl">You can check now</h1>
-            <div className="flex flex-row mt-3">
+            <div className="flex flex-row flex-wrap w-10/12 mt-3">
                 {Object.keys(airdropsData).map((key) => {
                     const airdrop = airdropsData[key]
                     return <Card key={airdrop.name} title={`$${airdrop.name.toUpperCase()} Airdrop`} text={airdrop.text}
