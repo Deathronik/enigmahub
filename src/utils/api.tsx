@@ -38,6 +38,11 @@ export const fetchZircuitWalletData = async (wallet: string, signal: AbortSignal
     } catch (e) {
         if (String(e).includes('signal')) {
             console.error(e)
+        } else if (String(e).includes('Failed to fetch')) {
+            console.error(e)
+            toast(<Toast text="CORS error. Please use the extension to bypass"/>);
+            await sleep(60000)
+            return await fetchQdevWalletData(wallet, signal);
         } else {
             console.error(e)
             toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
