@@ -3,11 +3,18 @@ import {
     fetchDriftWalletData, fetchGrassWalletData,
     fetchJupWalletData, fetchQdevWalletData,
     fetchSharkWalletData,
-    fetchTnsrWalletData
+    fetchTnsrWalletData, fetchZircuitWalletData
 } from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: { [key: string]: IAirdropData } = {
+    zircuit: {
+        link: 'zrc',
+        name: 'zrc',
+        text: 'Zircuit',
+        fetchWalletData: fetchZircuitWalletData,
+        alerts: ['cors']
+    },
     grass: {
         link: 'grass',
         name: 'grass',
@@ -25,7 +32,7 @@ export const airdropsData: { [key: string]: IAirdropData } = {
         name: 'qgov',
         text: 'Qdev',
         fetchWalletData: fetchQdevWalletData,
-        alerts: ['case', 'cors'],
+        alerts: ['case', 'cors']
     },
     drift: {
         link: 'drift',
