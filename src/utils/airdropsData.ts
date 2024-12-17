@@ -11,7 +11,7 @@ export const airdropsData: { [key: string]: IAirdropData } = {
     pengu: {
         link: 'pengu',
         name: 'pengu',
-        text: 'Pengu',
+        text: 'Pudgy Penguins',
         fetchWalletData: fetchPenguWalletData,
         alerts: ['limit']
     },
