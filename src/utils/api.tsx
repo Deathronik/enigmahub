@@ -38,9 +38,9 @@ export const fetchPenguWalletData = async (wallet: string, signal: AbortSignal):
             console.error(e)
         } else {
             console.error(e)
-            toast(<Toast text="Too Many Requests. Start waiting 90 seconds..."/>)
-            await sleep(90000)
-            return await fetchGrassWalletData(wallet, signal);
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await sleep(60000)
+            return await fetchPenguWalletData(wallet, signal);
         }
     }
 }
