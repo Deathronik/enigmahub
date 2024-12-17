@@ -1,13 +1,20 @@
 import {
     fetchDeBridgeWalletData,
     fetchDriftWalletData, fetchGrassWalletData,
-    fetchJupWalletData, fetchQdevWalletData,
+    fetchJupWalletData, fetchPenguWalletData, fetchQdevWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData, fetchZircuitWalletData
 } from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: { [key: string]: IAirdropData } = {
+    pengu: {
+        link: 'pengu',
+        name: 'pengu',
+        text: 'Pengu',
+        fetchWalletData: fetchPenguWalletData,
+        alerts: ['limit']
+    },
     zircuit: {
         link: 'zrc',
         name: 'zrc',

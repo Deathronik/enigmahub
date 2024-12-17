@@ -16,6 +16,7 @@ import {
     setCheckHistory
 } from "../../utils/checkHistory.ts";
 import RegisterAlert from "./RegisterAlert/RegisterAlert.tsx";
+import RateLimitAlert from "./RateLimitAlert/RateLimitAlert.tsx";
 
 const Checker = ({airdropName, fetchWalletData, alerts}: {
     airdropName: string,
@@ -126,6 +127,7 @@ const Checker = ({airdropName, fetchWalletData, alerts}: {
                     <div className="flex flex-col justify-start items-center pl-24 pt-20">
                         {alerts.includes("case") && <CaseAlert/>}
                         {alerts.includes("cors") && <CorsAlert/>}
+                        {alerts.includes("limit") && <RateLimitAlert/>}
                         {(alerts.includes("register") && results.length > 0) && <RegisterAlert/>}
                     </div>
                 }
