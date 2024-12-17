@@ -5,6 +5,7 @@ import Toast from "../components/Toast/Toast.tsx";
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
 export const fetchPenguWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
+        await sleep(1100)
         const response = await fetch(`https://api.clusters.xyz/v0.1/airdrops/pengu/eligibility/${wallet.toLowerCase()}`, {
             "headers": {
                 "accept": "*/*",
