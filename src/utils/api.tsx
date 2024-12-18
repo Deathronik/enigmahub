@@ -23,7 +23,7 @@ export const fetchPenguWalletData = async (wallet: string, signal: AbortSignal):
 
         if (json.total > 0) {
             return {
-                "wallet": json.addresses[0],
+                "wallet": wallet,
                 "amount":  json.total,
                 "eligible": true
             }
