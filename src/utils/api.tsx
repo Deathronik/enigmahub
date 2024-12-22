@@ -42,12 +42,12 @@ export const fetchZircuitWalletData = async (wallet: string, signal: AbortSignal
             console.error(e)
             toast(<Toast text="CORS error. Please use the extension to bypass"/>);
             await sleep(60000)
-            return await fetchQdevWalletData(wallet, signal);
+            return await fetchZircuitWalletData(wallet, signal);
         } else {
             console.error(e)
             toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
             await sleep(60000)
-            return await fetchGrassWalletData(wallet, signal);
+            return await fetchZircuitWalletData(wallet, signal);
         }
     }
 }

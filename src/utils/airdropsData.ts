@@ -56,7 +56,7 @@ export const airdropsData: { [key: string]: IAirdropData } = {
 
 const airdropFinishedText = 'If you see this page, it means that the airdrop is complete'
 
-export const finishedAirdropsData: string[] = {
+export const finishedAirdropsData: { [key: string]: { text: string } } = {
     strkr: {text: airdropFinishedText},
     alt: {text: airdropFinishedText},
     dym: {text: airdropFinishedText},
