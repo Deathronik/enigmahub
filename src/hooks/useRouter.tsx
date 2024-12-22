@@ -20,8 +20,8 @@ export const useRoutes = () => {
                                                 alerts={airdrop.alerts ? airdrop.alerts : undefined}/>}/>
             })}
             {Object.keys(finishedAirdropsData).map(key => {
-                const airdrop = finishedAirdropsData[key]
-                return <Route key={key} path={`/check/${key}`} element={<CheckFinished text={airdrop.text}/>}/>
+                const text = finishedAirdropsData[key].text
+                return <Route key={key} path={`/check/${key}`} element={<CheckFinished text={text}/>}/>
             })}
             <Route path="*" element={<Navigate to="/"/>}/>
         </Routes>
