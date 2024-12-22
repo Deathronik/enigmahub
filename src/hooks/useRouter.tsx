@@ -2,7 +2,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Links from "../components/Links/Links.tsx";
 import Home from "../components/Home/Home.tsx";
 import Checker from "../components/Checker/Checker.tsx";
-import AirdropFinished from "../components/AirdropFinished/AirdropFinished.tsx";
+import CheckFinished from "../components/AirdropFinished/CheckFinished.tsx";
 import {airdropsData, finishedAirdropsData} from "../utils/airdropsData.ts";
 import AddressesNormalizer from "../components/AddressesNormalizer/AddressesNormalizer.tsx";
 
@@ -19,8 +19,9 @@ export const useRoutes = () => {
                                                 fetchWalletData={airdrop.fetchWalletData}
                                                 alerts={airdrop.alerts ? airdrop.alerts : undefined}/>}/>
             })}
-            {finishedAirdropsData.map(airdrop => {
-                return <Route key={airdrop} path={`/check/${airdrop}`} element={<AirdropFinished stage={'airdrop'}/>}/>
+            {Object.keys(finishedAirdropsData).map(key => {
+                const airdrop = finishedAirdropsData[key]
+                return <Route key={key} path={`/check/${key}`} element={<CheckFinished text={airdrop.text}/>}/>
             })}
             <Route path="*" element={<Navigate to="/"/>}/>
         </Routes>

@@ -1,20 +1,13 @@
 import {
     fetchDeBridgeWalletData,
     fetchDriftWalletData, fetchGrassWalletData,
-    fetchJupWalletData, fetchPenguWalletData, fetchQdevWalletData,
+    fetchJupWalletData, fetchQdevWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData, fetchZircuitWalletData
 } from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: { [key: string]: IAirdropData } = {
-    pengu: {
-        link: 'pengu',
-        name: 'pengu',
-        text: 'Pudgy Penguins',
-        fetchWalletData: fetchPenguWalletData,
-        alerts: ['limit']
-    },
     zircuit: {
         link: 'zrc',
         name: 'zrc',
@@ -67,4 +60,17 @@ export const airdropsData: { [key: string]: IAirdropData } = {
     }
 }
 
-export const finishedAirdropsData: string[] = ['strkr', 'alt', 'dym', 'enjoy', 'rift', 'zeta', 'eigen', 'hlg', 'kresko']
+const airdropFinishedText = 'If you see this page, it means that the airdrop is complete'
+
+export const finishedAirdropsData: string[] = {
+    strkr: {text: airdropFinishedText},
+    alt: {text: airdropFinishedText},
+    dym: {text: airdropFinishedText},
+    enjoy: {text: airdropFinishedText},
+    rift: {text: airdropFinishedText},
+    zeta: {text: airdropFinishedText},
+    eigen: {text: airdropFinishedText},
+    hlg: {text: airdropFinishedText},
+    kresko: {text: airdropFinishedText},
+    pengu: {text: "If you see this page, it means that the project close API for check, so you need to use official checker"}
+}
