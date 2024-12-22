@@ -1,7 +1,7 @@
 import {
     fetchDeBridgeWalletData,
     fetchDriftWalletData, fetchGrassWalletData,
-    fetchJupWalletData, fetchQdevWalletData,
+    fetchJupWalletData,
     fetchSharkWalletData,
     fetchTnsrWalletData, fetchZircuitWalletData
 } from "./api.tsx";
@@ -19,20 +19,14 @@ export const airdropsData: { [key: string]: IAirdropData } = {
         link: 'grass',
         name: 'grass',
         text: 'Grass',
-        fetchWalletData: fetchGrassWalletData
+        fetchWalletData: fetchGrassWalletData,
+        alerts: ['cors']
     },
     debridge: {
         link: 'dbr',
         name: 'dbr',
         text: 'deBridge',
         fetchWalletData: fetchDeBridgeWalletData
-    },
-    qdev: {
-        link: 'qgov',
-        name: 'qgov',
-        text: 'Qdev',
-        fetchWalletData: fetchQdevWalletData,
-        alerts: ['case', 'cors']
     },
     drift: {
         link: 'drift',
@@ -72,5 +66,6 @@ export const finishedAirdropsData: string[] = {
     eigen: {text: airdropFinishedText},
     hlg: {text: airdropFinishedText},
     kresko: {text: airdropFinishedText},
+    qgov: {text: airdropFinishedText},
     pengu: {text: "If you see this page, it means that the project close API for check, so you need to use official checker"}
 }
