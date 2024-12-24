@@ -67,5 +67,5 @@ export const finishedAirdropsData: { [key: string]: { text: string } } = {
     hlg: {text: airdropFinishedText},
     kresko: {text: airdropFinishedText},
     qgov: {text: airdropFinishedText},
-    pengu: {text: "If you see this page, it means that the project close API for check, so you need to use official checker"}
+    pengu: {text: "If you see this page, it means that the project has closed API for checks, so you need to use the official checker"}
 }

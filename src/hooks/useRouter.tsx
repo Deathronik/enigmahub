@@ -2,7 +2,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Links from "../components/Links/Links.tsx";
 import Home from "../components/Home/Home.tsx";
 import Checker from "../components/Checker/Checker.tsx";
-import CheckFinished from "../components/AirdropFinished/CheckFinished.tsx";
+import CheckFinished from "../components/CheckFinished/CheckFinished.tsx";
 import {airdropsData, finishedAirdropsData} from "../utils/airdropsData.ts";
 import AddressesNormalizer from "../components/AddressesNormalizer/AddressesNormalizer.tsx";
 
