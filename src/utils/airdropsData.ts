@@ -12,7 +12,8 @@ export const airdropsData: { [key: string]: IAirdropData } = {
         link: "drv",
         name: "drv",
         text: "Derive",
-        fetchWalletData: fetchDeriveWalletData
+        fetchWalletData: fetchDeriveWalletData,
+        alerts: ['cors']
     },
     zircuit: {
         link: 'zrc',
