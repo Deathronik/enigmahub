@@ -1,5 +1,5 @@
 import {
-    fetchDeBridgeWalletData,
+    fetchDeBridgeWalletData, fetchDeriveWalletData,
     fetchDriftWalletData, fetchGrassWalletData,
     fetchJupWalletData,
     fetchSharkWalletData,
@@ -8,6 +8,12 @@ import {
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
 export const airdropsData: { [key: string]: IAirdropData } = {
+    derive: {
+        link: "drv",
+        name: "drv",
+        text: "derive",
+        fetchWalletData: fetchDeriveWalletData
+    },
     zircuit: {
         link: 'zrc',
         name: 'zrc',

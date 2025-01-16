@@ -3,6 +3,54 @@ import {toast} from "react-toastify";
 import Toast from "../components/Toast/Toast.tsx";
 
 const sleep = (time: number) => new Promise(r => setTimeout(r, time))
+export const fetchDeriveWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
+    try {
+        const response = await fetch(`https://www.derive.xyz/api/airdrop?address=${wallet}`, {
+            "headers": {
+                "accept": "*/*",
+                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
+                "cache-control": "no-cache",
+                "pragma": "no-cache",
+                "priority": "u=1, i"
+            },
+            "referrer": "https://www.derive.xyz/airdrop",
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "body": null,
+            "method": "GET",
+            "mode": "cors"
+        })
+
+        const json = await response.json()
+
+        if (json.airdrop.total > 0) {
+            return {
+                "wallet": wallet,
+                "amount":  json.airdrop.total / 1e18,
+                "eligible": true
+            }
+        } else {
+            return {
+                "wallet": wallet,
+                "amount": 0,
+                "eligible": false
+            }
+        }
+    } catch (e) {
+        if (String(e).includes('signal')) {
+            console.error(e)
+        } else if (String(e).includes('Failed to fetch')) {
+            console.error(e)
+            toast(<Toast text="CORS error. Please use the extension to bypass"/>);
+            await sleep(60000)
+            return await fetchDeriveWalletData(wallet, signal);
+        } else {
+            console.error(e)
+            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
+            await sleep(60000)
+            return await fetchDeriveWalletData(wallet, signal);
+        }
+    }
+}
 export const fetchZircuitWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch(`https://app.zircuit.com/api/claim/eigen-fairdrop/${wallet}`, {
