@@ -51,54 +51,6 @@ export const fetchDeriveWalletData = async (wallet: string, signal: AbortSignal)
         }
     }
 }
-export const fetchZircuitWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
-    try {
-        const response = await fetch(`https://app.zircuit.com/api/claim/eigen-fairdrop/${wallet}`, {
-            "headers": {
-                "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-                "accept-language": "en-US,en;q=0.9,ru-UA;q=0.8,ru;q=0.7,uk;q=0.6",
-                "cache-control": "no-cache",
-                "pragma": "no-cache",
-                "priority": "u=0, i",
-            },
-            "referrerPolicy": "strict-origin-when-cross-origin",
-            "body": null,
-            "method": "GET",
-            "mode": "cors",
-            "credentials": "include"
-        });
-
-        const json = await response.json()
-
-        if (json.questStatuses.length > 0) {
-            return {
-                "wallet": wallet,
-                "amount":  749,
-                "eligible": true
-            }
-        } else {
-            return {
-                "wallet": wallet,
-                "amount": 0,
-                "eligible": false
-            }
-        }
-    } catch (e) {
-        if (String(e).includes('signal')) {
-            console.error(e)
-        } else if (String(e).includes('Failed to fetch')) {
-            console.error(e)
-            toast(<Toast text="CORS error. Please use the extension to bypass"/>);
-            await sleep(60000)
-            return await fetchZircuitWalletData(wallet, signal);
-        } else {
-            console.error(e)
-            toast(<Toast text="Too Many Requests. Start waiting 60 seconds..."/>)
-            await sleep(60000)
-            return await fetchZircuitWalletData(wallet, signal);
-        }
-    }
-}
 export const fetchGrassWalletData = async (wallet: string, signal: AbortSignal): Promise<IWalletData | undefined> => {
     try {
         const response = await fetch(`https://api.getgrass.io/airdropAllocations?input=%7B%22walletAddress%22:%22${wallet}%22%7D`, {

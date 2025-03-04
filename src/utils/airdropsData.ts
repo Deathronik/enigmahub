@@ -3,7 +3,7 @@ import {
     fetchDriftWalletData, fetchGrassWalletData,
     fetchJupWalletData,
     fetchSharkWalletData,
-    fetchTnsrWalletData, fetchZircuitWalletData
+    fetchTnsrWalletData
 } from "./api.tsx";
 import {IAirdropData} from "../interfaces/IAirdropData.ts";
 
@@ -13,13 +13,6 @@ export const airdropsData: { [key: string]: IAirdropData } = {
         name: "drv",
         text: "Derive",
         fetchWalletData: fetchDeriveWalletData,
-        alerts: ['cors']
-    },
-    zircuit: {
-        link: 'zrc',
-        name: 'zrc',
-        text: 'Zircuit',
-        fetchWalletData: fetchZircuitWalletData,
         alerts: ['cors']
     },
     grass: {
@@ -74,5 +67,6 @@ export const finishedAirdropsData: { [key: string]: { text: string } } = {
     hlg: {text: airdropFinishedText},
     kresko: {text: airdropFinishedText},
     qgov: {text: airdropFinishedText},
-    pengu: {text: "If you see this page, it means that the project has closed API for checks, so you need to use the official checker"}
+    pengu: {text: "If you see this page, it means that the project has closed API for checks, so you need to use the official checker"},
+    zrc: {text: airdropFinishedText}
 }

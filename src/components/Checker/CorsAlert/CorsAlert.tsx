@@ -9,13 +9,14 @@ const CorsAlert = () => {
                       d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <div>
-                <p>The project has CORS protection, that the checker would work you need to download this <Link
-                    to="https://chromewebstore.google.com/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino?hl=ru" target="_blank" className="link link-neutral font-bold">extension</Link> for
-                    browser, enable it by clicking the left button</p>
-                <p className="mt-2">Then open the right mouse button menu and perform the following actions:</p>
-                <p className="mt-2">Extra Options {'>'} Add/Remove "referer" and "origin" Headers {'>'} Add same-origin
-                    "referer" and
-                    "origin" Headers</p>
+                <p>The project has CORS protection. To make the checker work, you need to download this browser <Link
+                    to="https://chromewebstore.google.com/detail/moesif-origincors-changer/digfbfaphojjndkpccljibejjbppifbc"
+                    target="_blank" className="link link-neutral font-bold">extension</Link></p>
+                <p className="mt-2">Open it by clicking the left mouse button, then activate the "Enable CORS"
+                    option</p>
+                <p className="mt-2">For your safety, it is recommended to use this extension only while working with the
+                    checker. After that, disable it here "chrome://extensions/"</p>
+                <p className="mt-2">*Next time, when using the checker, don't forget to enable the extension if the airdrop site has CORS protection</p>
             </div>
         </div>
     )
